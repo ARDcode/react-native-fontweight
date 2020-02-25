@@ -57,8 +57,10 @@ function font_style_generator(
 			fontFamily += 'Thin'
 			break
 		case '300':
-		case '400':
 			fontFamily += 'Light'
+			break
+		case '400':
+			fontFamily += 'Regular'
 			break
 		case '500':
 		case '600':
