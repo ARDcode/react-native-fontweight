@@ -60,12 +60,17 @@ class FontManager {
       const Font = require('expo-font');
       await Font.loadAsync({
         'Roboto-Black': require('./fonts/Roboto-Black.ttf'),
+        'Roboto-BlackItalic': require('./fonts/Roboto-Black.ttf'),
         'Roboto-Medium': require('./fonts/Roboto-Medium.ttf'),
-        'Roboto-Bold-Medium': require('./fonts/Roboto-Bold.ttf'),
+        'Roboto-MediumItalic': require('./fonts/Roboto-Medium.ttf'),
         'Roboto-Regular': require('./fonts/Roboto-Regular.ttf'),
         'Roboto-Thin': require('./fonts/Roboto-Thin.ttf'),
+        'Roboto-ThinItalic': require('./fonts/Roboto-Thin.ttf'),
         'Roboto-Bold': require('./fonts/Roboto-Bold.ttf'),
+        'Roboto-BoldItalic': require('./fonts/Roboto-Bold.ttf'),
         'Roboto-Light': require('./fonts/Roboto-Light.ttf'),
+        'Roboto-LightItalic': require('./fonts/Roboto-Light.ttf'),
+        'Roboto-Italic': require('./fonts/Roboto-Light.ttf'),
       });
     }
     (Text as any).render = this.override;
