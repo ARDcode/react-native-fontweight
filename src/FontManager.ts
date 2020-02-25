@@ -89,7 +89,7 @@ function font_style_generator(
 const oldRender = (Text as any).render
 
 class FontManager {
-	async init(isExpo: boolean) {
+	async init(isExpo: boolean = true) {
 		if (isExpo) {
 			const Font = require('expo-font');
 			// @ts-ignore
