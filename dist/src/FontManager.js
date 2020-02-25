@@ -1,10 +1,9 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -15,8 +14,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
         while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
             switch (op[0]) {
                 case 0: case 1: t = op; break;
                 case 4: _.label++; return { value: op[1], done: false };
@@ -35,27 +34,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_native_1 = require("react-native");
 var react_1 = __importDefault(require("react"));
-var Font = __importStar(require("expo-font"));
 // FIXME: This function is hideous
 function double_pascal_case_to_two_words(str) {
     var index;
@@ -90,8 +74,10 @@ function font_style_generator(font_family, font_weight, font_style) {
             fontFamily += 'Thin';
             break;
         case '300':
-        case '400':
             fontFamily += 'Light';
+            break;
+        case '400':
+            fontFamily += 'Regular';
             break;
         case '500':
         case '600':
@@ -120,24 +106,30 @@ var oldRender = react_native_1.Text.render;
 var FontManager = /** @class */ (function () {
     function FontManager() {
     }
-    FontManager.prototype.init = function () {
+    FontManager.prototype.init = function (isExpo) {
+        if (isExpo === void 0) { isExpo = true; }
         return __awaiter(this, void 0, void 0, function () {
+            var Font;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: 
-                    // @ts-ignore
-                    return [4 /*yield*/, Font.loadAsync({
-                            'Roboto-Black': require('./fonts/Roboto-Black.ttf'),
-                            'Roboto-Medium': require('./fonts/Roboto-Medium.ttf'),
-                            'Roboto-Bold-Medium': require('./fonts/Roboto-Bold.ttf'),
-                            'Roboto-Regular': require('./fonts/Roboto-Regular.ttf'),
-                            'Roboto-Thin': require('./fonts/Roboto-Thin.ttf'),
-                            'Roboto-Bold': require('./fonts/Roboto-Bold.ttf'),
-                            'Roboto-Light': require('./fonts/Roboto-Light.ttf'),
-                        })];
+                    case 0:
+                        if (!isExpo) return [3 /*break*/, 2];
+                        Font = require('expo-font');
+                        // @ts-ignore
+                        return [4 /*yield*/, Font.loadAsync({
+                                'Roboto-Black': require('./fonts/Roboto-Black.ttf'),
+                                'Roboto-Medium': require('./fonts/Roboto-Medium.ttf'),
+                                'Roboto-Bold-Medium': require('./fonts/Roboto-Bold.ttf'),
+                                'Roboto-Regular': require('./fonts/Roboto-Regular.ttf'),
+                                'Roboto-Thin': require('./fonts/Roboto-Thin.ttf'),
+                                'Roboto-Bold': require('./fonts/Roboto-Bold.ttf'),
+                                'Roboto-Light': require('./fonts/Roboto-Light.ttf'),
+                            })];
                     case 1:
                         // @ts-ignore
                         _a.sent();
+                        _a.label = 2;
+                    case 2:
                         react_native_1.Text.render = this.override;
                         return [2 /*return*/];
                 }
@@ -154,7 +146,7 @@ var FontManager = /** @class */ (function () {
      *   Used to contain error 'the containing arrow function captures the global'
      *   Therefore swapped it to function instead of arrow to remove global scope
      */
-        var origin = oldRender.call.apply(oldRender, __spreadArrays([this], args));
+        var origin = oldRender.call.apply(oldRender, [this].concat(args));
         if (react_native_1.Platform.OS === 'android') {
             if (origin.props.style) {
                 var fontWeight = origin.props.style.fontWeight ? origin.props.style.fontWeight : '400';
