@@ -52,28 +52,19 @@ function font_style_generator(
 			fontFamily += 'Bold'
 			break
 		case '100':
+		case '200':
 			fontFamily += 'Thin'
 			break
-		case '200':
-			fontFamily += 'Ultralight'
-			break
 		case '300':
+		case '400':
 			fontFamily += 'Light'
 			break
-		case '400':
-			fontFamily += 'Regular'
-			break
 		case '500':
-			fontFamily += 'Medium'
-			break
 		case '600':
-			fontFamily += 'Semibold'
-			break
+			fontFamily += 'Medium'
 		case '700':
-			fontFamily += 'Bold'
-			break
 		case '800':
-			fontFamily += 'Heavy'
+			fontFamily += 'Bold'
 			break
 		case '900':
 			fontFamily += 'Black'
