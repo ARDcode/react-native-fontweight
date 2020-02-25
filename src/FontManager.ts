@@ -62,6 +62,7 @@ function font_style_generator(
 		case '500':
 		case '600':
 			fontFamily += 'Medium'
+			break
 		case '700':
 		case '800':
 			fontFamily += 'Bold'
