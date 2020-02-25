@@ -1,6 +1,7 @@
 import {Platform, Text} from 'react-native'
 import React from 'react'
 
+
 type FontStyle = 'normal' | 'italic' | 'oblique'
 type FontWeight =
 	| 'normal'
@@ -88,7 +89,20 @@ function font_style_generator(
 const oldRender = (Text as any).render
 
 class FontManager {
-	init() {
+	async init(isExpo: boolean) {
+		if (isExpo) {
+			const Font = require('expo-font');
+			// @ts-ignore
+			await Font.loadAsync({
+				'Roboto-Black': require('./fonts/Roboto-Black.ttf'),
+				'Roboto-Medium': require('./fonts/Roboto-Medium.ttf'),
+				'Roboto-Bold-Medium': require('./fonts/Roboto-Bold.ttf'),
+				'Roboto-Regular': require('./fonts/Roboto-Regular.ttf'),
+				'Roboto-Thin': require('./fonts/Roboto-Thin.ttf'),
+				'Roboto-Bold': require('./fonts/Roboto-Bold.ttf'),
+				'Roboto-Light': require('./fonts/Roboto-Light.ttf'),
+			});
+		}
 		(Text as any).render = this.override
 	}
 
